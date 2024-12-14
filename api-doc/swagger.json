@@ -1,0 +1,2122 @@
+﻿{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Sistem Informasi Gereja Paroki Marau Api Documentation",
+    "description": "Sistem Informasi Gereja Paroki Marau Api Documentation",
+    "license": {
+      "name": "Specify your license",
+      "url": "https://yourlicense.com"
+    },
+    "x-logo": {
+      "url": "logo.png",
+      "description": "Sistem Informasi Gereja Paroki Marau Logo",
+      "altText": "Sistem Informasi Gereja Paroki Marau Logo",
+      "backgroundColor": "#483D8B"
+    },
+    "contact": {
+      "name": "Sistem Informasi Gereja Paroki Marau API Support",
+      "url": "https://sistem_informasi_gereja_paroki_marau.com/info/support",
+      "email": "support@sistem_informasi_gereja_paroki_marau.com"
+    },
+    "termsOfService": "https://sistem_informasi_gereja_paroki_marau.com/info/terms_and_conditions"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8060/api",
+      "description": "Api base url"
+    }
+  ],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "summary": "User Login",
+        "description": "Authenticate user and get user login data",
+        "operationId": "UserLogin",
+        
+        "tags": [
+          "Auth"
+        ],
+        
+        "requestBody": {
+          "description": "User login credentials",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLogin"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Request Completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginData"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unable to complete request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnAuthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/inventaris": {
+      "get": {
+        "summary": "List Inventaris",
+        "description": "Inventaris",
+        "operationId": "ListInventaris",
+        "security": [
+          {
+            "ApiKeyBearer": []
+          }
+        ],
+        "tags": [
+          "Inventaris"
+        ],
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Filter table records by search value",
+            "required": false,
+            "type": "string",
+            "schema": {
+              "$ref": "#/components/schemas/SearchQuery"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum number of records to select. Default 20",
+            "required": false,
+            "type": "string",
+            "schema": {
+              "$ref": "#/components/schemas/LimitQuery"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Current page record",
+            "required": false,
+            "type": "string",
+            "schema": {
+              "$ref": "#/components/schemas/PageNumberQuery"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request Completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListInventaris"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unable to complete request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnAuthenticated request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnAuthenticated"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/inventaris/view/{id}": {
+      "get": {
+        "summary": "View Inventaris",
+        "description": "Inventari Details",
+        "operationId": "ViewInventaris",
+        "security": [
+          {
+            "ApiKeyBearer": []
+          }
+        ],
+        "tags": [
+          "Inventaris"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Select record by ID",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/components/schemas/RecordID"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request Completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ViewInventaris"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unable to complete request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnAuthenticated request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnAuthenticated"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/inventaris/add": {
+      "post": {
+        "summary": "Add Inventaris",
+        "description": "Add New Inventari",
+        "operationId": "AddInventaris",
+        "security": [
+          {
+            "ApiKeyBearer": []
+          }
+        ],
+        "tags": [
+          "Inventaris"
+        ],
+        
+        "requestBody": {
+          "description": "Add Inventaris",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddInventaris"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Request Completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ViewInventaris"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unable to complete request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnAuthenticated request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnAuthenticated"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/inventaris/edit/{id}": {
+      "put": {
+        "summary": "Edit Inventaris",
+        "description": "Edit Inventari",
+        "operationId": "EditInventaris",
+        "security": [
+          {
+            "ApiKeyBearer": []
+          }
+        ],
+        "tags": [
+          "Inventaris"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Select record by ID",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/components/schemas/RecordID"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Edit Inventaris",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditInventaris"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Request Completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditInventaris"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unable to complete request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnAuthenticated request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnAuthenticated"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/inventaris/delete/{id}": {
+      "delete": {
+        "summary": "Delete Inventaris",
+        "description": "Inventaris",
+        "operationId": "DeleteInventaris",
+        "security": [
+          {
+            "ApiKeyBearer": []
+          }
+        ],
+        "tags": [
+          "Inventaris"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Select record by ID",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/components/schemas/RecordID"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request Completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unable to complete request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnAuthenticated request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnAuthenticated"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/jadwalturne": {
+      "get": {
+        "summary": "List Jadwalturne",
+        "description": "Jadwal Turne",
+        "operationId": "ListJadwalturne",
+        "security": [
+          {
+            "ApiKeyBearer": []
+          }
+        ],
+        "tags": [
+          "Jadwalturne"
+        ],
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Filter table records by search value",
+            "required": false,
+            "type": "string",
+            "schema": {
+              "$ref": "#/components/schemas/SearchQuery"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum number of records to select. Default 20",
+            "required": false,
+            "type": "string",
+            "schema": {
+              "$ref": "#/components/schemas/LimitQuery"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Current page record",
+            "required": false,
+            "type": "string",
+            "schema": {
+              "$ref": "#/components/schemas/PageNumberQuery"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request Completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListJadwalturne"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unable to complete request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnAuthenticated request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnAuthenticated"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/jadwalturne/view/{id}": {
+      "get": {
+        "summary": "View Jadwalturne",
+        "description": "Jadwal Turne Details",
+        "operationId": "ViewJadwalturne",
+        "security": [
+          {
+            "ApiKeyBearer": []
+          }
+        ],
+        "tags": [
+          "Jadwalturne"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Select record by ID",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/components/schemas/RecordID"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request Completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ViewJadwalturne"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unable to complete request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnAuthenticated request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnAuthenticated"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/jadwalturne/add": {
+      "post": {
+        "summary": "Add Jadwalturne",
+        "description": "Add New Jadwal Turne",
+        "operationId": "AddJadwalturne",
+        "security": [
+          {
+            "ApiKeyBearer": []
+          }
+        ],
+        "tags": [
+          "Jadwalturne"
+        ],
+        
+        "requestBody": {
+          "description": "Add Jadwalturne",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddJadwalturne"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Request Completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ViewJadwalturne"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unable to complete request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnAuthenticated request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnAuthenticated"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/jadwalturne/edit/{id}": {
+      "put": {
+        "summary": "Edit Jadwalturne",
+        "description": "Edit Jadwal Turne",
+        "operationId": "EditJadwalturne",
+        "security": [
+          {
+            "ApiKeyBearer": []
+          }
+        ],
+        "tags": [
+          "Jadwalturne"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Select record by ID",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/components/schemas/RecordID"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Edit Jadwalturne",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditJadwalturne"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Request Completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditJadwalturne"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unable to complete request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnAuthenticated request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnAuthenticated"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/jadwalturne/delete/{id}": {
+      "delete": {
+        "summary": "Delete Jadwalturne",
+        "description": "Jadwal Turne",
+        "operationId": "DeleteJadwalturne",
+        "security": [
+          {
+            "ApiKeyBearer": []
+          }
+        ],
+        "tags": [
+          "Jadwalturne"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Select record by ID",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/components/schemas/RecordID"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request Completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unable to complete request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnAuthenticated request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnAuthenticated"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stasi": {
+      "get": {
+        "summary": "List Stasi",
+        "description": "Stasi",
+        "operationId": "ListStasi",
+        "security": [
+          {
+            "ApiKeyBearer": []
+          }
+        ],
+        "tags": [
+          "Stasi"
+        ],
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Filter table records by search value",
+            "required": false,
+            "type": "string",
+            "schema": {
+              "$ref": "#/components/schemas/SearchQuery"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum number of records to select. Default 20",
+            "required": false,
+            "type": "string",
+            "schema": {
+              "$ref": "#/components/schemas/LimitQuery"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Current page record",
+            "required": false,
+            "type": "string",
+            "schema": {
+              "$ref": "#/components/schemas/PageNumberQuery"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request Completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListStasi"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unable to complete request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnAuthenticated request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnAuthenticated"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stasi/view/{id}": {
+      "get": {
+        "summary": "View Stasi",
+        "description": "Stasi Details",
+        "operationId": "ViewStasi",
+        "security": [
+          {
+            "ApiKeyBearer": []
+          }
+        ],
+        "tags": [
+          "Stasi"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Select record by ID",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/components/schemas/RecordID"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request Completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ViewStasi"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unable to complete request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnAuthenticated request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnAuthenticated"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stasi/add": {
+      "post": {
+        "summary": "Add Stasi",
+        "description": "Add New Stasi",
+        "operationId": "AddStasi",
+        "security": [
+          {
+            "ApiKeyBearer": []
+          }
+        ],
+        "tags": [
+          "Stasi"
+        ],
+        
+        "requestBody": {
+          "description": "Add Stasi",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddStasi"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Request Completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ViewStasi"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unable to complete request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnAuthenticated request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnAuthenticated"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stasi/edit/{id}": {
+      "put": {
+        "summary": "Edit Stasi",
+        "description": "Edit Stasi",
+        "operationId": "EditStasi",
+        "security": [
+          {
+            "ApiKeyBearer": []
+          }
+        ],
+        "tags": [
+          "Stasi"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Select record by ID",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/components/schemas/RecordID"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Edit Stasi",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditStasi"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Request Completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditStasi"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unable to complete request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnAuthenticated request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnAuthenticated"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stasi/delete/{id}": {
+      "delete": {
+        "summary": "Delete Stasi",
+        "description": "Stasi",
+        "operationId": "DeleteStasi",
+        "security": [
+          {
+            "ApiKeyBearer": []
+          }
+        ],
+        "tags": [
+          "Stasi"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Select record by ID",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/components/schemas/RecordID"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request Completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unable to complete request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnAuthenticated request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnAuthenticated"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "summary": "List User",
+        "description": "User",
+        "operationId": "ListUser",
+        "security": [
+          {
+            "ApiKeyBearer": []
+          }
+        ],
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Filter table records by search value",
+            "required": false,
+            "type": "string",
+            "schema": {
+              "$ref": "#/components/schemas/SearchQuery"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum number of records to select. Default 20",
+            "required": false,
+            "type": "string",
+            "schema": {
+              "$ref": "#/components/schemas/LimitQuery"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Current page record",
+            "required": false,
+            "type": "string",
+            "schema": {
+              "$ref": "#/components/schemas/PageNumberQuery"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request Completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListUser"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unable to complete request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnAuthenticated request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnAuthenticated"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/view/{id}": {
+      "get": {
+        "summary": "View User",
+        "description": "User Details",
+        "operationId": "ViewUser",
+        "security": [
+          {
+            "ApiKeyBearer": []
+          }
+        ],
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Select record by ID",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/components/schemas/RecordID"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request Completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ViewUser"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unable to complete request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnAuthenticated request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnAuthenticated"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/edit": {
+      "put": {
+        "summary": "Edit User Account Details",
+        "description": "My Account",
+        "operationId": "AccountEdit",
+        "security": [
+          {
+            "ApiKeyBearer": []
+          }
+        ],
+        "tags": [
+          "Account"
+        ],
+        
+        "requestBody": {
+          "description": "Edit User Account Details",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccountEdit"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Request Completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountEdit"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unable to complete request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnAuthenticated request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnAuthenticated"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account": {
+      "get": {
+        "summary": "User Account Details",
+        "description": "My Account",
+        "operationId": "Account",
+        "security": [
+          {
+            "ApiKeyBearer": []
+          }
+        ],
+        "tags": [
+          "Account"
+        ],
+        
+        "responses": {
+          "200": {
+            "description": "Request Completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Account"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unable to complete request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnAuthenticated request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnAuthenticated"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/add": {
+      "post": {
+        "summary": "Add User",
+        "description": "Add New User",
+        "operationId": "AddUser",
+        "security": [
+          {
+            "ApiKeyBearer": []
+          }
+        ],
+        "tags": [
+          "User"
+        ],
+        
+        "requestBody": {
+          "description": "Add User",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Request Completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ViewUser"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unable to complete request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnAuthenticated request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnAuthenticated"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/edit/{id}": {
+      "put": {
+        "summary": "Edit User",
+        "description": "Edit User",
+        "operationId": "EditUser",
+        "security": [
+          {
+            "ApiKeyBearer": []
+          }
+        ],
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Select record by ID",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/components/schemas/RecordID"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Edit User",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Request Completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditUser"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unable to complete request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnAuthenticated request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnAuthenticated"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/delete/{id}": {
+      "delete": {
+        "summary": "Delete User",
+        "description": "User",
+        "operationId": "DeleteUser",
+        "security": [
+          {
+            "ApiKeyBearer": []
+          }
+        ],
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Select record by ID",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/components/schemas/RecordID"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request Completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unable to complete request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnAuthenticated request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnAuthenticated"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyBearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "ListInventaris": {
+        "type": "object",
+        "properties": {
+          "nama_barang": {
+            "description": "Nama Barang",
+            "type": "string"
+          },
+          "lokasi_barang": {
+            "description": "Lokasi Barang",
+            "type": "string"
+          },
+          "kode_barang": {
+            "description": "Kode Barang",
+            "type": "string"
+          },
+          "kategori_barang": {
+            "description": "Kategori Barang",
+            "type": "string"
+          },
+          "tanggal_memperoleh": {
+            "description": "Tanggal Memperoleh",
+            "type": "string"
+          },
+          "tanggal_input": {
+            "description": "Tanggal Input",
+            "type": "string"
+          }
+        }
+      },
+      "ViewInventaris": {
+        "type": "object",
+        "properties": {
+          "id_inventaris": {
+            "description": "Id Inventaris",
+            "type": "string"
+          },
+          "nama_barang": {
+            "description": "Nama Barang",
+            "type": "string"
+          },
+          "lokasi_barang": {
+            "description": "Lokasi Barang",
+            "type": "string"
+          },
+          "kode_barang": {
+            "description": "Kode Barang",
+            "type": "string"
+          },
+          "kategori_barang": {
+            "description": "Kategori Barang",
+            "type": "string"
+          },
+          "tanggal_memperoleh": {
+            "description": "Tanggal Memperoleh",
+            "type": "string"
+          },
+          "tanggal_input": {
+            "description": "Tanggal Input",
+            "type": "string"
+          }
+        }
+      },
+      "AddInventaris": {
+        "type": "object",
+        "properties": {
+          "nama_barang": {
+            "description": "Nama Barang",
+            "type": "string"
+          },
+          "lokasi_barang": {
+            "description": "Lokasi Barang",
+            "type": "string"
+          },
+          "kode_barang": {
+            "description": "Kode Barang",
+            "type": "string"
+          },
+          "kategori_barang": {
+            "description": "Kategori Barang",
+            "type": "string"
+          },
+          "tanggal_memperoleh": {
+            "description": "Tanggal Memperoleh",
+            "type": "string"
+          },
+          "tanggal_input": {
+            "description": "Tanggal Input",
+            "type": "string"
+          }
+        }
+      },
+      "EditInventaris": {
+        "type": "object",
+        "properties": {
+          "nama_barang": {
+            "description": "Nama Barang",
+            "type": "string"
+          },
+          "lokasi_barang": {
+            "description": "Lokasi Barang",
+            "type": "string"
+          },
+          "kode_barang": {
+            "description": "Kode Barang",
+            "type": "string"
+          },
+          "kategori_barang": {
+            "description": "Kategori Barang",
+            "type": "string"
+          },
+          "tanggal_memperoleh": {
+            "description": "Tanggal Memperoleh",
+            "type": "string"
+          },
+          "tanggal_input": {
+            "description": "Tanggal Input",
+            "type": "string"
+          }
+        }
+      },
+      "ListJadwalturne": {
+        "type": "object",
+        "properties": {
+          "lokasi": {
+            "description": "Lokasi",
+            "type": "string"
+          },
+          "tanggal": {
+            "description": "Tanggal",
+            "type": "string"
+          },
+          "hari": {
+            "description": "Hari",
+            "type": "string"
+          },
+          "jam_mulai": {
+            "description": "Jam Mulai",
+            "type": "string"
+          },
+          "jam_selesai": {
+            "description": "Jam Selesai",
+            "type": "string"
+          }
+        }
+      },
+      "ViewJadwalturne": {
+        "type": "object",
+        "properties": {
+          "id_jadwal": {
+            "description": "Id Jadwal",
+            "type": "string"
+          },
+          "lokasi": {
+            "description": "Lokasi",
+            "type": "string"
+          },
+          "tanggal": {
+            "description": "Tanggal",
+            "type": "string"
+          },
+          "hari": {
+            "description": "Hari",
+            "type": "string"
+          },
+          "jam_mulai": {
+            "description": "Jam Mulai",
+            "type": "string"
+          },
+          "jam_selesai": {
+            "description": "Jam Selesai",
+            "type": "string"
+          }
+        }
+      },
+      "AddJadwalturne": {
+        "type": "object",
+        "properties": {
+          "lokasi": {
+            "description": "Lokasi",
+            "type": "string"
+          },
+          "tanggal": {
+            "description": "Tanggal",
+            "type": "string"
+          },
+          "hari": {
+            "description": "Hari",
+            "type": "string"
+          },
+          "jam_mulai": {
+            "description": "Jam Mulai",
+            "type": "string"
+          },
+          "jam_selesai": {
+            "description": "Jam Selesai",
+            "type": "string"
+          }
+        }
+      },
+      "EditJadwalturne": {
+        "type": "object",
+        "properties": {
+          "lokasi": {
+            "description": "Lokasi",
+            "type": "string"
+          },
+          "tanggal": {
+            "description": "Tanggal",
+            "type": "string"
+          },
+          "hari": {
+            "description": "Hari",
+            "type": "string"
+          },
+          "jam_mulai": {
+            "description": "Jam Mulai",
+            "type": "string"
+          },
+          "jam_selesai": {
+            "description": "Jam Selesai",
+            "type": "string"
+          }
+        }
+      },
+      "ListStasi": {
+        "type": "object",
+        "properties": {
+          "nama_stasi": {
+            "description": "Nama Stasi",
+            "type": "string"
+          },
+          "desa": {
+            "description": "Desa",
+            "type": "string"
+          },
+          "alamat": {
+            "description": "Alamat",
+            "type": "string"
+          },
+          "deskripsi": {
+            "description": "Deskripsi",
+            "type": "string"
+          },
+          "umat_laki": {
+            "description": "Umat Laki",
+            "type": "string"
+          },
+          "umat_perempuan": {
+            "description": "Umat Perempuan",
+            "type": "string"
+          },
+          "total_umat": {
+            "description": "Total Umat",
+            "type": "string"
+          },
+          "foto_gereja": {
+            "description": "Foto Gereja",
+            "type": "string"
+          },
+          "foto_tanah": {
+            "description": "Foto Tanah",
+            "type": "string"
+          },
+          "tanggal_input": {
+            "description": "Tanggal Input",
+            "type": "string"
+          }
+        }
+      },
+      "ViewStasi": {
+        "type": "object",
+        "properties": {
+          "id_stasi": {
+            "description": "Id Stasi",
+            "type": "string"
+          },
+          "nama_stasi": {
+            "description": "Nama Stasi",
+            "type": "string"
+          },
+          "desa": {
+            "description": "Desa",
+            "type": "string"
+          },
+          "alamat": {
+            "description": "Alamat",
+            "type": "string"
+          },
+          "deskripsi": {
+            "description": "Deskripsi",
+            "type": "string"
+          },
+          "umat_laki": {
+            "description": "Umat Laki",
+            "type": "string"
+          },
+          "umat_perempuan": {
+            "description": "Umat Perempuan",
+            "type": "string"
+          },
+          "total_umat": {
+            "description": "Total Umat",
+            "type": "string"
+          },
+          "tanggal_input": {
+            "description": "Tanggal Input",
+            "type": "string"
+          },
+          "foto_gereja": {
+            "description": "Foto Gereja",
+            "type": "string"
+          },
+          "foto_tanah": {
+            "description": "Foto Tanah",
+            "type": "string"
+          }
+        }
+      },
+      "AddStasi": {
+        "type": "object",
+        "properties": {
+          "nama_stasi": {
+            "description": "Nama Stasi",
+            "type": "string"
+          },
+          "desa": {
+            "description": "Desa",
+            "type": "string"
+          },
+          "alamat": {
+            "description": "Alamat",
+            "type": "string"
+          },
+          "deskripsi": {
+            "description": "Deskripsi",
+            "type": "string"
+          },
+          "umat_laki": {
+            "description": "Umat Laki",
+            "type": "string"
+          },
+          "umat_perempuan": {
+            "description": "Umat Perempuan",
+            "type": "string"
+          },
+          "total_umat": {
+            "description": "Total Umat",
+            "type": "string"
+          },
+          "foto_gereja": {
+            "description": "Foto Gereja",
+            "type": "string"
+          },
+          "foto_tanah": {
+            "description": "Foto Tanah",
+            "type": "string"
+          },
+          "tanggal_input": {
+            "description": "Tanggal Input",
+            "type": "string"
+          }
+        }
+      },
+      "EditStasi": {
+        "type": "object",
+        "properties": {
+          "nama_stasi": {
+            "description": "Nama Stasi",
+            "type": "string"
+          },
+          "desa": {
+            "description": "Desa",
+            "type": "string"
+          },
+          "alamat": {
+            "description": "Alamat",
+            "type": "string"
+          },
+          "deskripsi": {
+            "description": "Deskripsi",
+            "type": "string"
+          },
+          "umat_laki": {
+            "description": "Umat Laki",
+            "type": "string"
+          },
+          "umat_perempuan": {
+            "description": "Umat Perempuan",
+            "type": "string"
+          },
+          "total_umat": {
+            "description": "Total Umat",
+            "type": "string"
+          },
+          "foto_gereja": {
+            "description": "Foto Gereja",
+            "type": "string"
+          },
+          "foto_tanah": {
+            "description": "Foto Tanah",
+            "type": "string"
+          },
+          "tanggal_input": {
+            "description": "Tanggal Input",
+            "type": "string"
+          }
+        }
+      },
+      "ListUser": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "description": "Username",
+            "type": "string"
+          },
+          "email": {
+            "description": "Email",
+            "type": "string"
+          }
+        }
+      },
+      "ViewUser": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "description": "Username",
+            "type": "string"
+          },
+          "email": {
+            "description": "Email",
+            "type": "string"
+          },
+          "id_user": {
+            "description": "Id User",
+            "type": "string"
+          }
+        }
+      },
+      "AccountEdit": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "description": "Username",
+            "type": "string"
+          }
+        }
+      },
+      "Account": {
+        "type": "object",
+        "properties": {
+          "id_user": {
+            "description": "Id User",
+            "type": "string"
+          },
+          "username": {
+            "description": "Username",
+            "type": "string"
+          },
+          "email": {
+            "description": "Email",
+            "type": "string"
+          }
+        }
+      },
+      "AddUser": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "description": "Username",
+            "type": "string"
+          },
+          "password": {
+            "description": "Password",
+            "type": "string"
+          },
+          "confirm_password": {
+            "description": "Confirm Password",
+            "type": "string"
+          },
+          "email": {
+            "description": "Email",
+            "type": "string"
+          }
+        }
+      },
+      "EditUser": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "description": "Username",
+            "type": "string"
+          }
+        }
+      },
+      "SearchQuery": {
+        "type": "string",
+        "properties": {
+          "search": {
+            "description": "Search value",
+            "type": "string"
+          }
+        }
+      },
+      "OrderByQuery": {
+        "type": "string",
+        "properties": {
+          "orderby": {
+            "description": "Sort field name",
+            "type": "string"
+          }
+        }
+      },
+      "OrderTypeQuery": {
+        "type": "string",
+        "properties": {
+          "ordertype": {
+            "description": "Sort type",
+            "type": "string"
+          }
+        }
+      },
+      "LimitQuery": {
+        "type": "string",
+        "properties": {
+          "limit": {
+            "description": "Maximum number of records to select",
+            "type": "integer"
+          }
+        }
+      },
+      "PageNumberQuery": {
+        "type": "string",
+        "properties": {
+          "pagenumber": {
+            "description": "Current page number",
+            "type": "integer"
+          }
+        }
+      },
+      "RecordID": {
+        "type": "string",
+        "properties": {
+          "id": {
+            "description": "Record ID",
+            "type": "string"
+          }
+        }
+      },
+      "UserLogin": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "description": "Username or Email",
+            "type": "string"
+          },
+          "password": {
+            "description": "User Password",
+            "type": "string"
+          }
+        }
+      },
+      "LoginData": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "description": "User json web token(jwt)",
+            "type": "string"
+          },
+          "user": {
+            "description": "User Data",
+            "type": "object"
+          }
+        }
+      },
+      "UnAuthenticated": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "description": "401",
+            "type": "integer"
+          },
+          "message": {
+            "description": "UnAuthenticated",
+            "type": "string"
+          }
+        }
+      },
+      "UnAuthorized": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "description": "403",
+            "type": "integer"
+          },
+          "message": {
+            "description": "UnAuthorized",
+            "type": "string"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "description": "Http Status Code",
+            "type": "integer"
+          },
+          "message": {
+            "description": "Unable to complete request",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
